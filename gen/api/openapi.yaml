@@ -1,0 +1,289 @@
+openapi: 3.0.3
+info:
+  description: ticketing/queuing API
+  title: Helpdesk API
+  version: 1.0.0
+servers:
+- url: http://192.168.4.134:3030/helpdesk-ticketing
+paths:
+  /{specification}/{from}/{to}/{teamId}:
+    post:
+      parameters:
+      - description: Parameter for specific ticket status
+        explode: false
+        in: path
+        name: specification
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: Parameter for specific from date
+        explode: false
+        in: path
+        name: from
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      - description: Parameter for specific to date
+        explode: false
+        in: path
+        name: to
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      - description: Parameter for specific from date
+        explode: false
+        in: path
+        name: teamId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                userid:
+                  type: string
+                accessTokenEnc:
+                  type: string
+              required:
+              - accessTokenEnc
+              - userId
+              type: object
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Server Error.
+        "400":
+          description: You are not authorized to access the page.
+        "401":
+          description: Invalid Key.
+        "402":
+          description: System key expired, please contact the administrator.
+        "403":
+          description: Invalid Token.
+        default:
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Display all tickets for Admin and Support
+      tags:
+      - Display Tickets
+      x-contentType: application/json
+      x-accepts: application/json
+  /{specification}/{from}/{to}/{teamId}/{userId}:
+    post:
+      parameters:
+      - description: Parameter for specific ticket status
+        explode: false
+        in: path
+        name: specification
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: Parameter for specific from date
+        explode: false
+        in: path
+        name: from
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      - description: Parameter for specific to date
+        explode: false
+        in: path
+        name: to
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      - description: Parameter for specific from date
+        explode: false
+        in: path
+        name: teamId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: Parameter for specific from date
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_1'
+        content:
+          application/json:
+            schema:
+              properties:
+                userid:
+                  type: string
+                accessTokenEnc:
+                  type: string
+              required:
+              - accessTokenEnc
+              - userId
+              type: object
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Server Error.
+        "400":
+          description: You are not authorized to access the page.
+        "401":
+          description: Invalid Key.
+        "402":
+          description: System key expired, please contact the administrator.
+        "403":
+          description: Invalid Token.
+        default:
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Display all tickets for specific user
+      tags:
+      - Display Tickets
+      x-contentType: application/json
+      x-accepts: application/json
+  /queuing/{from}/{to}:
+    post:
+      parameters:
+      - description: Parameter for specific from date
+        explode: false
+        in: path
+        name: from
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      - description: Parameter for specific to date
+        explode: false
+        in: path
+        name: to
+        required: true
+        schema:
+          format: varchar
+          minimum: 1
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_2'
+        content:
+          application/json:
+            schema:
+              properties:
+                userid:
+                  type: string
+                accessTokenEnc:
+                  type: string
+              required:
+              - accessTokenEnc
+              - userId
+              type: object
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Server Error.
+        "400":
+          description: You are not authorized to access the page.
+        "401":
+          description: Invalid Key.
+        "402":
+          description: System key expired, please contact the administrator.
+        "403":
+          description: Invalid Token.
+        default:
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Display all tickets for queuing
+      tags:
+      - Display Tickets
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  requestBodies:
+    inline_object_1:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_1'
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+    inline_object_2:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_2'
+  schemas:
+    inline_object_1:
+      properties:
+        userid:
+          type: string
+        accessTokenEnc:
+          type: string
+      required:
+      - accessTokenEnc
+      - userId
+      type: object
+    inline_object:
+      properties:
+        userid:
+          type: string
+        accessTokenEnc:
+          type: string
+      required:
+      - accessTokenEnc
+      - userId
+      type: object
+    inline_object_2:
+      properties:
+        userid:
+          type: string
+        accessTokenEnc:
+          type: string
+      required:
+      - accessTokenEnc
+      - userId
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: json
+      scheme: bearer
+      type: http
+

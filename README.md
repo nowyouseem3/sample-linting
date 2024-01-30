@@ -1,0 +1,2 @@
+# sample-linting
+# sample-linting

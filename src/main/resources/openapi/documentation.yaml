@@ -1,0 +1,1145 @@
+openapi: "3.0.3"
+info:
+  title: "Helpdesk API"
+  description: "ticketing/queuing API"
+  version: "1.0.0"
+servers:
+  - url: "http://192.168.4.134:3030/helpdesk-ticketing"
+
+paths:
+  /{specification}/{from}/{to}/{teamId}:
+    post:
+      summary: Display all tickets for Admin and Support
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: specification
+          in: path
+          required: true
+          description: Parameter for specific ticket status
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: from
+          in: path
+          required: true
+          description: Parameter for specific from date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+        - name: to
+          in: path
+          required: true
+          description: Parameter for specific to date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+        - name: teamId
+          in: path
+          required: true
+          description: Parameter for specific from date
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: string
+                accessTokenEnc:
+                  type: string
+              required:
+                - userId
+                - accessTokenEnc
+      responses:
+        200:
+          description: OK
+        500:
+          description: Server Error.
+        400:
+          description: You are not authorized to access the page.
+        401:
+          description: Invalid Key.
+        402:
+          description: System key expired, please contact the administrator.
+        403:
+          description: Invalid Token.
+        default:
+          description: Unexpected error
+      tags:
+        - Display Tickets #  /user/change-password:
+
+  /{specification}/{from}/{to}/{teamId}/{userId}:
+    post:
+      summary: Display all tickets for specific user
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: specification
+          in: path
+          required: true
+          description: Parameter for specific ticket status
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: from
+          in: path
+          required: true
+          description: Parameter for specific from date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+        - name: to
+          in: path
+          required: true
+          description: Parameter for specific to date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+        - name: teamId
+          in: path
+          required: true
+          description: Parameter for specific from date
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: userId
+          in: path
+          required: true
+          description: Parameter for specific from date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: string
+                accessTokenEnc:
+                  type: string
+              required:
+                - userId
+                - accessTokenEnc
+      responses:
+        200:
+          description: OK
+        500:
+          description: Server Error.
+        400:
+          description: You are not authorized to access the page.
+        401:
+          description: Invalid Key.
+        402:
+          description: System key expired, please contact the administrator.
+        403:
+          description: Invalid Token.
+        default:
+          description: Unexpected error
+      tags:
+        - Display Tickets #  /user/change-password:
+
+  /queuing/{from}/{to}:
+    post:
+      summary: Display all tickets for queuing
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: from
+          in: path
+          required: true
+          description: Parameter for specific from date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+        - name: to
+          in: path
+          required: true
+          description: Parameter for specific to date
+          schema:
+            type: string
+            format: varchar
+            minimum: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userid:
+                  type: string
+                accessTokenEnc:
+                  type: string
+              required:
+                - userId
+                - accessTokenEnc
+      responses:
+        200:
+          description: OK
+        500:
+          description: Server Error.
+        400:
+          description: You are not authorized to access the page.
+        401:
+          description: Invalid Key.
+        402:
+          description: System key expired, please contact the administrator.
+        403:
+          description: Invalid Token.
+        default:
+          description: Unexpected error
+      tags:
+        - Display Tickets #  /user/change-password:
+#    post:
+#      summary: "POST user/change-password"
+#      security:
+#        - bearerAuth: [ ]
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userId:
+#                  type: string
+#                currentPassword:
+#                  type: string
+#                newPassword:
+#                  type: string
+#              required:
+#                - userId
+#                - currentPassword
+#                - newPassword
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/forgot-password:
+#    post:
+#      summary: "POST user/forgot-password"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                username:
+#                  type: string
+#                personalEmail:
+#                  type: string
+#              required:
+#                - username
+#                - personalEmail
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/forgot-password/confirm/{generatedData}:
+#    get:
+#      summary: "GET user/forgot-password/confirm/{generatedData}"
+#      parameters:
+#        - name: "generatedData"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/login:
+#    post:
+#      summary: "POST user/login"
+#      security:
+#        - bearerAuth: [ ]
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                username:
+#                  type: string
+#                password:
+#                  type: string
+#                browserUsed:
+#                  type: string
+#                deviceid:
+#                  type: string
+#              required:
+#                - username
+#                - password
+#                - browserUsed
+#                - deviceid
+#
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/logoutaccount:
+#    delete:
+#      summary: "DELETE user/logoutaccount"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userid:
+#                  type: string
+#                sessionId:
+#                  type: string
+#              required:
+#                - userid
+#                - sessionId
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/logoutactivesession:
+#    post:
+#      summary: "POST user/logoutactivesession"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                Sessionarrays:
+#                  type: array
+#              required:
+#                - Sessionarrays
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/registration:
+#    post:
+#      summary: "POST user/registration"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#            example: # Sample object
+#              {
+#                "PersonalDetails": {
+#                  "Firstname": "dencio",
+#                  "Lastname": "bowdown",
+#                  "Middlename": "b",
+#                  "Address": "manila",
+#                  "Birthdate": "2022-10-28",
+#                  "Imagename": "errors.jpg"
+#                },
+#                "ContactDetails": {
+#                  "Primarycontact": "example@gmail.com",
+#                  "Secondarycontact": "09222",
+#                  "Companyno": "2",
+#                  "Localno": "10456",
+#                  "Personalemail": "example@gmail.com",
+#                  "Companyemail": "",
+#                  "Groupemail": "foos@umtc.com.ph",
+#                  "EmergencyContactDetails": "{{nan, kuya ,rey,much}}"
+#                },
+#                "CompanyDetails": {
+#                  "Usertype": 1,
+#                  "Maincompany": 2,
+#                  "Subcompany": "5;3;4"
+#                },
+#                "EmploymentDetails": {
+#                  "Employeeno": "",
+#                  "Employmentstatus": 1,
+#                  "Department": 1,
+#                  "Division": 1,
+#                  "Section": 1
+#                },
+#                "Benefits": {
+#                  "Mealelegibility": {
+#                    "Breakfast": 0,
+#                    "Lunch": 1,
+#                    "Dinner": 0
+#                  }
+#                }}
+#
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/update-company:
+#    post:
+#      summary: "POST /user/update-company"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                sessionId:
+#                  type: string
+#                company:
+#                  type: integer
+#              required:
+#                - sessionId
+#                - company
+#              example:
+#                {
+#                  "sessionId": "f9c3986b3aa1514395d6b218c86be925",
+#                  "company": 1
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /user/forgot-password/confirm/{generatedCode}:
+#    get:
+#      summary: "GET /user/forgot-password/confirm/{generatedCode}"
+#      parameters:
+#        - name: generatedCode
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - User Account
+#
+#  /transaction/user-details:
+#    post:
+#      summary: "POST transaction/user-details"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userid:
+#                  type: string
+#
+#              required:
+#                - userid
+#              example:
+#                {
+#                  "userid": "USR-57"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/users-details:
+#    post:
+#      summary: "POST transaction/users-details"
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/users-credentials:
+#    post:
+#      summary: "POST transaction/users-credentials"
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/update-session-time:
+#    post:
+#      summary: "POST transaction/update-session-time"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                sessionId:
+#                  type: string
+#
+#              required:
+#                - sessionId
+#              example:
+#                {
+#                  "sessionId": "98a784979dcabe8bb4decb2430827cc3"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/update-session:
+#    post:
+#      summary: "POST transaction/update-session"
+#      security:
+#        - bearerAuth: [ ]
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                sessionId:
+#                  type: string
+#
+#              required:
+#                - sessionId
+#              example:
+#                {
+#                  "sessionId": "98a784979dcabe8bb4decb2430827cc3"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-privileges:
+#    post:
+#      summary: "POST transaction/user-privileges"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userid:
+#                  type: string
+#                token:
+#                  type: string
+#              required:
+#                - userid
+#                - token
+#              example:
+#                {
+#                  "userid": "USR-56",
+#                  "token": "ae1f5cb431f2d902277778c02f88b0e0"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-privileges-by-session:
+#    post:
+#      summary: "POST transaction/user-privileges-by-session"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userid:
+#                  type: string
+#                token:
+#                  type: string
+#              required:
+#                - userid
+#                - token
+#              example:
+#                {
+#                  "userid": "USR-56",
+#                  "token": "ae1f5cb431f2d902277778c02f88b0e0"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-meal-privilege:
+#    post:
+#      summary: "POST transaction/user-meal-privilege"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userId:
+#                  type: string
+#              required:
+#                - userId
+#              example:
+#                {
+#                  "userId": "USR-56"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-subcompany:
+#    post:
+#      summary: "POST transaction/user-subcompany"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userId:
+#                  type: string
+#              required:
+#                - userId
+#              example:
+#                {
+#                  "userId": "USR-56"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-account-status/{userId}:
+#    put:
+#      summary: "PUT /transaction/user-account-status/{userId}"
+#      parameters:
+#        - name: userId
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                Personnelstatus:
+#                  type: boolean
+#                Systemstatus:
+#                  type: boolean
+#              required:
+#                - Personnelstatus
+#                - Systemstatus
+#              example:
+#                {
+#                  "Personnelstatus": false,
+#                  "Systemstatus": false
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-update/{userId}:
+#    put:
+#      summary: "PUT transaction/user-update/{userId}"
+#      parameters:
+#        - name: userId
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#            example:
+#              {
+#                "PersonalDetails": {
+#                  "Firstname": "stoofsssss",
+#                  "Lastname": "stinakamalakassssss",
+#                  "Middlename": "b",
+#                  "Address": "manila",
+#                  "Birthdate": "2022-10-28"
+#                },
+#                "ContactDetails": {
+#                  "Primarycontact": "000",
+#                  "Secondarycontact": "09222",
+#                  "Companyno": "2",
+#                  "Localno": "10456",
+#                  "Personalemail": "den.balinhawang@gmail.com",
+#                  "Companyemail": "den@gmail.com",
+#                  "Groupemail": "foos@umtc.com.ph",
+#                  "EmergencyContactDetails": "{{renan, kuya inlab,reynan,pogi much}}"
+#                },
+#                "CompanyDetails": {
+#                  "Usertype": 1,
+#                  "Maincompany": 2,
+#                  "Subcompany": "5;3;4"
+#                },
+#                "EmploymentDetails": {
+#                  "Employmentstatus": 1,
+#                  "Department": 1,
+#                  "Division": 1,
+#                  "Section": 1
+#                }
+#              }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/user-meal-update/{userId}:
+#    put:
+#      summary: "PUT /transaction/user-meal-update/{userId}"
+#      parameters:
+#        - name: userId
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                breakfast:
+#                  type: integer
+#                lunch:
+#                  type: integer
+#                dinner:
+#                  type: integer
+#              required:
+#                - breakfast
+#                - lunch
+#                - dinner
+#              example:
+#                {
+#                  "breakfast": 1,
+#                  "lunch": 0,
+#                  "dinner": 1
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/system-preset-details:
+#    get:
+#      summary: "GET /transaction/system-preset-details"
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/pin-detection:
+#    post:
+#      summary: "POST /transaction/pin-detectiony"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userId:
+#                  type: string
+#              required:
+#                - userId
+#              example:
+#                {
+#                  "userId": "USR-56"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/pin-comparison:
+#    post:
+#      summary: "POST /transaction/pin-comparison"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userId:
+#                  type: string
+#                pin:
+#                  type: string
+#              required:
+#                - userId
+#                - pin
+#              example:
+#                {
+#                  "userId": "USR-71",
+#                  "pin": "123456"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/pin-update:
+#    post:
+#      summary: "POST /transaction/pin-update"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                userId:
+#                  type: string
+#                password:
+#                  type: string
+#                newPin:
+#                  type: string
+#              required:
+#                - userId
+#                - password
+#                - newPin
+#              example:
+#                {
+#                  "userId": "USR-71",
+#                  "password": "2223281d57699a84146fdb9a5e88515ce2",
+#                  "newPin": "654321"
+#                }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /transaction/module-privileges-details:
+#    get:
+#      summary: "GET /transaction/module-privileges-details"
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Administration
+#
+#  /files/users/upload:
+#    post:
+#      summary: "POST files/users/upload"
+#      requestBody:
+#        content:
+#          multipart/form-data:
+#            schema:
+#              type: object
+#              properties:
+#                file:
+#                  type: string
+#                  format: binary
+#
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Files and Images
+#
+#  /image/users/update:
+#    post:
+#      summary: "POST /image/users/update"
+#      requestBody:
+#        content:
+#          multipart/form-data:
+#            schema:
+#              type: object
+#              properties:
+#                file:
+#                  type: string
+#                  format: binary
+#                userId:
+#                  type: string
+#
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Files and Images
+#
+#  /image/users/update/{userId}:
+#    put:
+#      summary: "PUT /image/users/update"
+#      parameters:
+#        - name: userId
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      requestBody:
+#        content:
+#          multipart/form-data:
+#            schema:
+#              type: object
+#              properties:
+#                file:
+#                  type: string
+#                  format: binary
+#
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Files and Images
+#
+#  /menuEntry/menu-template/{title}:
+#    get:
+#      summary: "GET menuEntry/menu-template/{title}"
+#      parameters:
+#        - name: "title"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Menu Entry
+#
+#  /menuEntry/insert:
+#    post:
+#      summary: "POST menuEntry/insert"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#            example:
+#              {
+#                mealDate: "",
+#                mealType: 1,
+#                mealTemplateId: 1,
+#                mealClassification: 1,
+#                createdBy: ""
+#              }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Menu Entry
+#
+#  /menuEntry/{mealDate}:
+#    get:
+#      summary: "GET menuEntry/{mealDate}"
+#      parameters:
+#        - name: "mealDate"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Menu Entry
+#
+#  /menuEntry/{id}:
+#    delete:
+#      summary: "DELETE menuEntry/{id}"
+#      parameters:
+#        - name: "id"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Menu Entry
+#
+#  /menuEntry/{DateFrom}/{DateTo}:
+#    get:
+#      summary: "GET menuEntry/{DateFrom}/{DateTo}"
+#      parameters:
+#        - name: "DateFrom"
+#          in: "path"
+#          required: false
+#        - name: "DateTo"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Menu Entry
+#
+#  /menuEntry/:
+#    get:
+#      summary: "GET menuEntry"
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Menu Entry
+#
+#  /image/upload:
+#    post:
+#      summary: "POST image/upload"
+#      requestBody:
+#        content:
+#          multipart/form-data:
+#            schema:
+#              type: object
+#              properties:
+#                file:
+#                  type: string
+#                  format: binary
+#                menutitle:
+#                  type: string
+#                menudescription:
+#                  type: string
+#
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Image
+#
+#  /image/{name}:
+#    get:
+#      summary: "GET image/{name}"
+#      parameters:
+#        - name: "name"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Image
+#
+#  /mealBooking/Monitoring/{dateFrom}/{dateTo}:
+#    post:
+#      summary: "POST mealBooking/Monitoring/{dateFrom}/{dateTo}"
+#      parameters:
+#        - name: "dateFrom"
+#          in: "path"
+#          required: false
+#        - name: "dateTo"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Booking
+#
+#  /mealBooking/Monitoring/{userid}:
+#    get:
+#      summary: "GET mealBooking/Monitoring/{userid}"
+#      parameters:
+#        - name: "userid"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Booking
+#
+#  /mealBooking/{date}:
+#    get:
+#      summary: "GET mealBooking/{date}"
+#      parameters:
+#        - name: "date"
+#          in: "path"
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Booking
+#
+#  /mealBooking/{userId}:
+#    post:
+#      summary: "POST /mealBooking/{userId}"
+#      parameters:
+#        - name: userId
+#          in: path
+#          required: true
+#          schema:
+#            type: string
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#            example:
+#              {
+#                "date": "2022-12-10",
+#                "mealChosenBreakfastId": 1,
+#                "mealChosenLunchId": 1,
+#                "mealChosenDinnerId": 1,
+#                "mealRequestedBy": "Den",
+#                "mealDateUpdater": "2022-12-10",
+#                "employeeMealRemarks": "testing ",
+#                "otherMealRemarks": "testing remarks"
+#              }
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Booking
+#
+#  /mealBookingRecords/{date}:
+#    get:
+#      summary: "GET mealBookingRecords/{date}"
+#      parameters:
+#        - name: "date"
+#          in: "path"
+#          required: true
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Booking
+#  /mealBookingRecords/{dateFrom}/{dateTo}/active={active}:
+#    get:
+#      summary: "GET mealBookingRecords/{dateFrom}/{dateTo}/active={active}"
+#      parameters:
+#        - name: dateFrom
+#          in: path
+#          required: false
+#        - name: dateTo
+#          in: path
+#          required: false
+#        - name: active
+#          in: path
+#          required: false
+#      responses:
+#        "200":
+#          description: "OK"
+#      tags:
+#        - Meal Booking
+
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: json
